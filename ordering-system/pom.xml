@@ -1,9 +1,10 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>giftapp</artifactId>
         <groupId>com.giftapp</groupId>
         <version>0.0.1</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
@@ -15,6 +16,7 @@
         <module>order-dataaccess</module>
         <module>order-messaging</module>
         <module>order-domain</module>
+        <module>order-container</module>
     </modules>
 
     <dependencyManagement>
@@ -22,22 +24,32 @@
             <dependency>
                 <groupId>com.giftapp</groupId>
                 <artifactId>order-application</artifactId>
-                <version>${project.version}</version>
+                <version>${project.parent.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.giftapp</groupId>
                 <artifactId>order-dataaccess</artifactId>
-                <version>${project.version}</version>
+                <version>${project.parent.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.giftapp</groupId>
                 <artifactId>order-domain</artifactId>
-                <version>${project.version}</version>
+                <version>${project.parent.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.giftapp</groupId>
                 <artifactId>order-messaging</artifactId>
-                <version>${project.version}</version>
+                <version>${project.parent.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.giftapp</groupId>
+                <artifactId>order-application-service</artifactId>
+                <version>${project.parent.version}}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.giftapp</groupId>
+                <artifactId>order-domain-core</artifactId>
+                <version>${project.parent.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
