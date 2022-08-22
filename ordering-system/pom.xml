@@ -17,6 +17,7 @@
         <module>order-messaging</module>
         <module>order-domain</module>
         <module>order-container</module>
+        <module>common-domain</module>
     </modules>
 
     <dependencyManagement>
