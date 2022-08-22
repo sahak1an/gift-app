@@ -4,25 +4,19 @@ import static java.math.BigDecimal.ZERO;
 import static java.math.RoundingMode.HALF_DOWN;
 
 import java.math.BigDecimal;
-import java.util.Objects;
 
-public class Money {
-    private final BigDecimal amount;
-
-    public Money(BigDecimal amount) {
-        this.amount = amount;
-    }
+public record Money(BigDecimal amount) {
 
     public boolean isGreeterThanZero() {
         return this.amount != null && amount.compareTo(ZERO) > 0;
     }
 
     public boolean isGreeterThan(Money money) {
-        return this.amount != null && amount.compareTo(money.getAmount()) > 0;
+        return this.amount != null && amount.compareTo(money.amount()) > 0;
     }
 
     public Money add(Money money, int scale) {
-        var actual = this.amount.add(money.getAmount()).setScale(scale, HALF_DOWN);
+        var actual = this.amount.add(money.amount()).setScale(scale, HALF_DOWN);
 
         return new Money(actual);
     }
@@ -32,7 +26,7 @@ public class Money {
     }
 
     public Money multiply(Money money, int scale) {
-        var actual = this.amount.multiply(money.getAmount()).setScale(scale, HALF_DOWN);
+        var actual = this.amount.multiply(money.amount()).setScale(scale, HALF_DOWN);
 
         return new Money(actual);
     }
@@ -42,33 +36,12 @@ public class Money {
     }
 
     public Money subtract(Money money, int scale) {
-        var actual = this.amount.subtract(money.getAmount()).setScale(scale, HALF_DOWN);
+        var actual = this.amount.subtract(money.amount()).setScale(scale, HALF_DOWN);
 
         return new Money(actual);
     }
 
     public Money subtract(Money money) {
         return add(money, 2);
-    }
-
-    public BigDecimal getAmount() {
-        return amount;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(amount);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Money money = (Money) o;
-        return Objects.equals(amount, money.amount);
     }
 }

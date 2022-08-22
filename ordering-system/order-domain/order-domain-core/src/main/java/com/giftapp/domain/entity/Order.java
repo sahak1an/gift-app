@@ -9,7 +9,9 @@ import com.giftapp.domain.valueobject.OrderStatus;
 import com.giftapp.domain.valueobject.PersonId;
 import com.giftapp.domain.valueobject.StreetAddress;
 import com.giftapp.domain.valueobject.TrackingId;
+import lombok.Getter;
 
+@Getter
 public class Order extends AggregateRoot<OrderId> {
     private final CustomerId customerId;
     private final PersonId personId;
@@ -35,38 +37,6 @@ public class Order extends AggregateRoot<OrderId> {
 
     public static Builder newBuilder() {
         return new Builder();
-    }
-
-    public CustomerId getCustomerId() {
-        return customerId;
-    }
-
-    public PersonId getPersonId() {
-        return personId;
-    }
-
-    public StreetAddress getDeliveryAddress() {
-        return deliveryAddress;
-    }
-
-    public Money getPrice() {
-        return price;
-    }
-
-    public List<OrderItem> getOrderItems() {
-        return orderItems;
-    }
-
-    public TrackingId getTrackingId() {
-        return trackingId;
-    }
-
-    public OrderStatus getOrderStatus() {
-        return orderStatus;
-    }
-
-    public List<String> getFailureMessages() {
-        return failureMessages;
     }
 
     public static final class Builder {
