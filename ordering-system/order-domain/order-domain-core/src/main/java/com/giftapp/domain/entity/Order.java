@@ -77,6 +77,34 @@ public class Order extends AggregateRoot<OrderId> {
 
     }
 
+    public void pay() {
+        if (orderStatus != OrderStatus.PENDING) {
+            throw new IllegalStateException();
+        }
+        orderStatus = OrderStatus.PAID;
+    }
+
+    public void approve() {
+        if (orderStatus != OrderStatus.PAID) {
+            throw new IllegalStateException();
+        }
+        orderStatus = OrderStatus.APPROVED;
+    }
+
+    public void initCancel() {
+        if (orderStatus != OrderStatus.PAID) {
+            throw new IllegalStateException();
+        }
+        orderStatus = OrderStatus.CANCELING;
+    }
+
+    public void cancel() {
+        if (orderStatus != OrderStatus.CANCELING || orderStatus != OrderStatus.PENDING) {
+            throw new IllegalStateException();
+        }
+        orderStatus = OrderStatus.CANCELING;
+    }
+
     private Order(Builder builder) {
         super.setId(builder.id);
         customerId = builder.customerId;
