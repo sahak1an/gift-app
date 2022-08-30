@@ -6,6 +6,7 @@ import static java.math.RoundingMode.HALF_DOWN;
 import java.math.BigDecimal;
 
 public record Money(BigDecimal amount) {
+    public static final Money MONEY_ZERO = new Money(ZERO);
 
     public boolean isGreeterThanZero() {
         return this.amount != null && amount.compareTo(ZERO) > 0;

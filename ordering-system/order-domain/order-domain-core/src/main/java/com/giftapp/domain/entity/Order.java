@@ -1,10 +1,13 @@
 package com.giftapp.domain.entity;
 
 import java.util.List;
+import java.util.UUID;
 
+import com.giftapp.domain.exception.OrderDomainException;
 import com.giftapp.domain.valueobject.CustomerId;
 import com.giftapp.domain.valueobject.Money;
 import com.giftapp.domain.valueobject.OrderId;
+import com.giftapp.domain.valueobject.OrderItemId;
 import com.giftapp.domain.valueobject.OrderStatus;
 import com.giftapp.domain.valueobject.PersonId;
 import com.giftapp.domain.valueobject.StreetAddress;
@@ -23,6 +26,57 @@ public class Order extends AggregateRoot<OrderId> {
     private OrderStatus orderStatus;
     private List<String> failureMessages;
 
+    public void initOrder() {
+        setId(new OrderId(UUID.randomUUID()));
+        trackingId = new TrackingId(UUID.randomUUID());
+        orderStatus = OrderStatus.PENDING;
+        initOrderItems();
+    }
+
+    public void validateOrder() {
+        validateInitialOrder();
+        validateTotalPrice();
+        validateItemsPrice();
+    }
+
+    private void validateItemsPrice() {
+        if (price == null || !price.isGreeterThanZero()) {
+            throw new OrderDomainException();
+        }
+    }
+
+    private void validateTotalPrice() {
+        Money orderItemsTotal = orderItems.stream()
+                .map(orderItem -> {
+                    validateOrderPrice(orderItem);
+                    return orderItem.getSubTotal();
+                })
+                .reduce(Money.MONEY_ZERO, Money::add);
+        if (!price.equals(orderItemsTotal)) {
+            throw new OrderDomainException();
+        }
+    }
+
+    private void validateOrderPrice(OrderItem orderItem) {
+        if (!orderItem.isPriceValid()) {
+            throw new OrderDomainException();
+        }
+    }
+
+    private void validateInitialOrder() {
+        if (orderStatus != null || getId() != null) {
+            throw new OrderDomainException();
+        }
+    }
+
+    void initOrderItems() {
+        long itemId = 1;
+        for (OrderItem orderItem : orderItems) {
+            orderItem.init(super.getId(), new OrderItemId(++itemId));
+        }
+
+    }
+
     private Order(Builder builder) {
         super.setId(builder.id);
         customerId = builder.customerId;
@@ -39,6 +93,7 @@ public class Order extends AggregateRoot<OrderId> {
         return new Builder();
     }
 
+    //region builder
     public static final class Builder {
         private OrderId id;
         private CustomerId customerId;
@@ -102,4 +157,5 @@ public class Order extends AggregateRoot<OrderId> {
             return new Order(this);
         }
     }
+    //endregion
 }

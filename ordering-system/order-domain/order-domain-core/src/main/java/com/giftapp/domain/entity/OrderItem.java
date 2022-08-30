@@ -1,20 +1,26 @@
 package com.giftapp.domain.entity;
 
 import com.giftapp.domain.valueobject.Money;
+import com.giftapp.domain.valueobject.OrderId;
 import com.giftapp.domain.valueobject.OrderItemId;
 import lombok.Getter;
 
 @Getter
 public class OrderItem extends BaseEntity<OrderItemId>{
-    private OrderItemId orderItemId;
+    private OrderId orderId;
     private final Product product;
     private final int quantity;
     private final Money price;
     private final Money subTotal;
 
+    public void init(OrderId orderId, OrderItemId orderItemId) {
+        this.orderId = orderId;
+        super.setId(orderItemId);
+    }
+
+    // region builder
     private OrderItem(Builder builder) {
         super.setId(builder.orderItemId);
-        orderItemId = builder.orderItemId;
         product = builder.product;
         quantity = builder.quantity;
         price = builder.price;
@@ -23,6 +29,10 @@ public class OrderItem extends BaseEntity<OrderItemId>{
 
     public static Builder newBuilder() {
         return new Builder();
+    }
+
+    public boolean isPriceValid() {
+        return price.isGreeterThanZero();
     }
 
     public static final class Builder {
@@ -64,4 +74,5 @@ public class OrderItem extends BaseEntity<OrderItemId>{
             return new OrderItem(this);
         }
     }
+    //endregion
 }
