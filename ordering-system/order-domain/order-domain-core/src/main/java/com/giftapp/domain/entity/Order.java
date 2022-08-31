@@ -1,5 +1,7 @@
 package com.giftapp.domain.entity;
 
+import static com.giftapp.domain.valueobject.OrderStatus.*;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -29,7 +31,7 @@ public class Order extends AggregateRoot<OrderId> {
     public void initOrder() {
         setId(new OrderId(UUID.randomUUID()));
         trackingId = new TrackingId(UUID.randomUUID());
-        orderStatus = OrderStatus.PENDING;
+        orderStatus = PENDING;
         initOrderItems();
     }
 
@@ -78,33 +80,34 @@ public class Order extends AggregateRoot<OrderId> {
     }
 
     public void pay() {
-        if (orderStatus != OrderStatus.PENDING) {
+        if (orderStatus != PENDING) {
             throw new IllegalStateException();
         }
-        orderStatus = OrderStatus.PAID;
+        orderStatus = PAID;
     }
 
     public void approve() {
-        if (orderStatus != OrderStatus.PAID) {
+        if (orderStatus != PAID) {
             throw new IllegalStateException();
         }
-        orderStatus = OrderStatus.APPROVED;
+        orderStatus = APPROVED;
     }
 
     public void initCancel() {
-        if (orderStatus != OrderStatus.PAID) {
+        if (orderStatus != PAID) {
             throw new IllegalStateException();
         }
-        orderStatus = OrderStatus.CANCELING;
+        orderStatus = CANCELING;
     }
 
     public void cancel() {
-        if (orderStatus != OrderStatus.CANCELING || orderStatus != OrderStatus.PENDING) {
+        if (orderStatus != CANCELING || orderStatus != PENDING) {
             throw new IllegalStateException();
         }
-        orderStatus = OrderStatus.CANCELING;
+        orderStatus = CANCELING;
     }
 
+    //region builder
     private Order(Builder builder) {
         super.setId(builder.id);
         customerId = builder.customerId;
@@ -121,7 +124,7 @@ public class Order extends AggregateRoot<OrderId> {
         return new Builder();
     }
 
-    //region builder
+
     public static final class Builder {
         private OrderId id;
         private CustomerId customerId;
