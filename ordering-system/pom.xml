@@ -53,6 +53,27 @@
                 <artifactId>order-domain-core</artifactId>
                 <version>${project.parent.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.giftapp</groupId>
+                <artifactId>kafka-producer</artifactId>
+                <version>>${project.parent.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.giftapp</groupId>
+                <artifactId>kafka-config-data</artifactId>
+                <version>>${project.parent.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.giftapp</groupId>
+                <artifactId>kafka-consumer</artifactId>
+                <version>>${project.parent.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.giftapp</groupId>
+                <artifactId>kafka-model</artifactId>
+                <version>>${project.parent.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 </project>

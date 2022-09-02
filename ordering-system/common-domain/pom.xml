@@ -13,10 +13,6 @@
 
     <dependencies>
 
-        <dependency>
-            <groupId>com.giftapp</groupId>
-            <artifactId>order-domain-core</artifactId>
-        </dependency>
     </dependencies>
 
 </project>
