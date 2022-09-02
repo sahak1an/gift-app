@@ -17,6 +17,7 @@ import com.giftapp.orderingsystem.kafka.KafkaConfigData;
 import com.giftapp.orderingsystem.kafka.KafkaProducerConfigData;
 import lombok.RequiredArgsConstructor;
 import org.apache.avro.specific.SpecificRecordBase;
+import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -43,5 +44,4 @@ public class KafkaConfiguration<K extends Serializable, V extends SpecificRecord
         );
     }
 
-    public PrFactory
 }
