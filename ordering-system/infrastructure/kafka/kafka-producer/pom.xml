@@ -11,7 +11,6 @@
 
     <artifactId>kafka-producer</artifactId>
 
-
     <dependencies>
         <dependency>
             <groupId>com.giftapp</groupId>
@@ -26,6 +25,15 @@
         <dependency>
             <groupId>com.giftapp</groupId>
             <artifactId>order-domain-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.giftapp</groupId>
+            <artifactId>common-domain</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
         </dependency>
         <dependency>
             <groupId>io.confluent</groupId>

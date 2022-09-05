@@ -21,6 +21,12 @@
         <module>infrastructure</module>
     </modules>
 
+    <properties>
+        <spring-kafka.version>2.9.0</spring-kafka.version>
+        <kafka-avro-serializer.version>7.2.1</kafka-avro-serializer.version>
+        <avro.version>1.11.1</avro.version>
+    </properties>
+
     <dependencyManagement>
         <dependencies>
             <dependency>

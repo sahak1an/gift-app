@@ -20,14 +20,14 @@
 
 
     <repositories>
-        <repository>
-            <id>central</id>
-            <url>https://repo.maven.apache.org/maven2</url>
-            <layout>default</layout>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
+        <!--        <repository>-->
+        <!--            <id>central</id>-->
+        <!--            <url>https://repo.maven.apache.org/maven2</url>-->
+        <!--            <layout>default</layout>-->
+        <!--            <snapshots>-->
+        <!--                <enabled>false</enabled>-->
+        <!--            </snapshots>-->
+        <!--        </repository>-->
         <repository>
             <id>confluent</id>
             <url>https://packages.confluent.io/maven/</url>
@@ -40,11 +40,13 @@
             <dependency>
                 <groupId>org.springframework.kafka</groupId>
                 <artifactId>spring-kafka</artifactId>
+                <version>${spring-kafka.version}</version>
             </dependency>
+
             <dependency>
                 <groupId>io.confluent</groupId>
                 <artifactId>kafka-avro-serializer</artifactId>
-                <version>7.2.1</version>
+                <version>${kafka-avro-serializer.version}</version>
                 <exclusions>
                     <exclusion>
                         <groupId>org.slf4j</groupId>
@@ -67,7 +69,7 @@
             <dependency>
                 <groupId>org.apache.avro</groupId>
                 <artifactId>avro</artifactId>
-                <version>1.11.1</version>
+                <version>${avro.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

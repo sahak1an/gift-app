@@ -17,9 +17,11 @@ import com.giftapp.orderingsystem.kafka.KafkaConfigData;
 import com.giftapp.orderingsystem.kafka.KafkaProducerConfigData;
 import lombok.RequiredArgsConstructor;
 import org.apache.avro.specific.SpecificRecordBase;
-import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.kafka.core.DefaultKafkaProducerFactory;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.core.ProducerFactory;
 
 @Configuration
 @RequiredArgsConstructor
@@ -42,6 +44,16 @@ public class KafkaConfiguration<K extends Serializable, V extends SpecificRecord
                 REQUEST_TIMEOUT_MS_CONFIG, producerConfig.getRequestTimeoutMs(),
                 RETRIES_CONFIG, producerConfig.getRetryCount()
         );
+    }
+
+    @Bean
+    public ProducerFactory<K,V> producerFactory(){
+        return new DefaultKafkaProducerFactory<>(producerConfig());
+    }
+
+    @Bean
+    public KafkaTemplate<K,V> kafkaTemplate(){
+        return new KafkaTemplate<>(producerFactory());
     }
 
 }
